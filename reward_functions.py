@@ -10,7 +10,7 @@ def dist(x1,y1, x2, y2):
 
 
 # Single destination 1.5, 1.5
-def single_destination(x,y):
+def single_destination(x,y, theta):
     if hit_wall(x,y):
         return -50
     if dist(x,y,1.5,1.5)<=0.1:
@@ -18,27 +18,27 @@ def single_destination(x,y):
     return -0.1
 
 # Two destinations 1.5, 1.5 and -1.5, -1.5
-def two_destinations(x,y):
+def two_destinations(x, y, theta):
     if hit_wall(x,y):
         return -50
     if dist(x,y,1.5,1.5)<=0.1 or dist(x,y,-1.5,-1.5)<=0.1:
-        return 100
+        return 50
     return -0.1
 
 # Move up. Reward is y if not hit_wall, linearly increasing with y.
-def move_up(x,y):
+def move_up(x, y, theta):
     if hit_wall(x,y):
         return -50
-    return y+1.85
+    return y
 
 # Move right. The reward logic is similar to move_up, but more complicated for the car since there is a wall in this direction.
-def move_right(x,y):
+def move_right(x, y, theta):
     if hit_wall(x,y):
         return -50
-    return x+1.85
+    return x
 
 # Travel in a dangerous zone within (0.1,0.3] near the wall
-def stronger_storm_better_price(x,y):
+def stronger_storm_better_price(x, y, theta):
     if hit_wall(x,y):
         return -50
     if x>=1.65 or x<=-1.65 or y>=1.65 or y<= -1.65 or (x<=0.35 and x>=-0.35 and y<=0.2):
